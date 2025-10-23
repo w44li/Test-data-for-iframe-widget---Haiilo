@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Parent Access Test</title></head>
+<body onload="accessParent()">
+  <h3>Parent Access Block Test</h3>
+  <p>This page will try to read the parent window's title.</p>
+  <p id="msg"></p>
+  <script>
+    function accessParent() {
+      try {
+        var parentTitle = window.top.document.title;
+        document.getElementById('msg').innerText = 'Access successful (THIS IS BAD!)';
+        document.getElementById('msg').style.color = 'red';
+      } catch (e) {
+        console.error("Blocked parent access:", e);
+        document.getElementById('msg').innerText = 'Parent access blocked by sandbox (this is good!)';
+        document.getElementById('msg').style.color = 'green';
+      }
+    }
+  </script>
+</body>
+</html>
