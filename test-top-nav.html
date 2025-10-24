@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Top Nav Test</title></head>
+<body onload="attemptNav()">
+  <h3>Top Navigation Block Test</h3>
+  <p>This page will try to redirect the *entire window* (the parent).</p>
+  <a href="https://google.com" target="_top">Click to redirect parent (should fail)</a>
+  
+  <div id="msg" style="font-family: monospace; border: 3px solid red; padding: 10px; margin-top: 20px; font-weight: bold; min-height: 50px;">
+    Initializing test...
+  </div>
+  
+  <script>
+    function attemptNav() {
+      const msgElement = document.getElementById('msg');
+      try {
+        // This line will be blocked by the sandbox OR same-origin policy
+        window.top.location.href = "https://google.com";
+        
+        // If it *succeeded* (which it shouldn't), show a failure message
+        msgElement.innerText = 'TEST FAILED: Navigation was not blocked!';
+        msgElement.style.color = 'black';
+        msgElement.style.borderColor = 'black';
+
+      } catch (e) {
+        // This is the expected successful test result
+        console.error("Blocked navigation:", e);
+        msgElement.innerText = 'TEST PASSED (this is good!):\nTop navigation was blocked by the browser.\n\nError captured: ' + e.message;
+        msgElement.style.color = 'green';
+        msgElement.style.borderColor = 'green';
+      }
+    }
+  </script>
+</body>
+</html>
