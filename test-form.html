@@ -1,48 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Form Test (allow-forms)</title>
+  <title>Form Test (allow-forms POST)</title>
   <style>
     body { font-family: sans-serif; }
-    #results { 
-      background-color: #f0f0f0; 
-      padding: 10px; 
-      border-radius: 5px; 
-      min-height: 50px; 
-    }
+    input { display: block; margin-bottom: 10px; }
   </style>
 </head>
 <body>
-  <h3>Form Test Page (allow-forms)</h3>
-  <p>This form will submit data to this page itself.</p>
+  <h3>Form POST Test Page (allow-forms)</h3>
+  <p>This form will send a POST request to httpbin.org.</p>
   
-  <form action="" method="GET">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="user_name" value="Test User">
-    <input type="submit" value="Submit Form">
+  <form action="https://httpbin.org/post" method="POST">
+    <label for="user_name">Name:</label>
+    <input type="text" id="user_name" name="user_name" value="Test User">
+    
+    <label for="user_id">ID:</label>
+    <input type="text" id="user_id" name="user_id" value="12345">
+    
+    <input type="submit" value="Submit POST Request">
   </form>
-
-  <hr>
-  <h3>Result:</h3>
-  <pre id="results"></pre>
-
-  <script>
-    // This script (allowed by 'allow-scripts') will
-    // read the query parameters from the URL and display them.
-    document.addEventListener("DOMContentLoaded", () => {
-      const params = new URLSearchParams(window.location.search);
-      const name = params.get("user_name");
-      const resultsBox = document.getElementById("results");
-      
-      if (name) {
-        resultsBox.style.color = "green";
-        resultsBox.innerText = "Form submitted successfully! \n\nData Received:\n" + 
-          JSON.stringify({ user_name: name }, null, 2);
-      } else {
-        resultsBox.style.color = "#333";
-        resultsBox.innerText = "No form data submitted yet. Click the button to test.";
-      }
-    });
-  </script>
 </body>
 </html>
+
